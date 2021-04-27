@@ -1,0 +1,306 @@
+GIT key terminology
+```
+1. Git repository
+	1. Contains Files, History, Configuration managed by git
+2. Stage of GIT
+	1. Working Directory
+		1. Area of Live Files, also known as untracked area of GIT
+	2. Staging Area
+		1. Staging area is when git starts tracking and saving changes that occur in friles
+	3. Git Directory
+		1. local repo is your .git repo
+3. Remote repository is also known as GITHub
+4. Branch in GIT 
+```
+
+Git is an Opensource and version control system (VCS)
+	Types of VCS
+		Centralized VCS 
+			One main central repository every developer will work on the same repo
+		Distributed VCS (GIT is a DVCS)
+			This will have a local code repo as well as a central repo. developer pushes the code to local repo first them push to central repo
+			
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Step1 : Configure User Information in git
+The user configuration are Global configuration in git
+	Creating a Global User and adding Email Id 
+```
+git config --global user.name "melvintazz"
+git config --global user.email "melvintazz@gmail.com"
+```
+
+	List all the config user and Email Details
+```
+git config --list
+```
+
+Note : whenever we commit any changes in code this information is also passed with the commit, so we can identify who made the changes
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Step 2: Git repository Initialization 
+We are going to set up an Empty project
+We always need to initialize the git in the Project root directory(the main directory)
+	For example, I have a project in /home/melvintazz
+	I have created a folder under /home/melvintazz as gittraining_v1
+	
+	In order to initialize the git under the gittraining_v1, we need to run the git initialize command  under gittraining_v1 folder
+```
+git init
+Initialized empty Git repository in /home/melvintazz/gittraining_v1/.git/ 
+[root@workstation gittraining_v1]#
+
+
+(.git directory is a hidden dir you need to run ls -la )
+[melvintazz@workstation gittraining_v1]$ ls -la 
+drwxr-xr-x.  7 melvintazz melvintazz  119 Mar 16 04:16 .git
+
+[melvintazz@workstation .git]$ pwd 
+/home/melvintazz/gittraining_v1/.git 
+[melvintazz@workstation .git]$ ll 
+drwxr-xr-x. 2 root root    6 Mar 16 04:16 branches 
+-rw-r--r--. 1 root root   92 Mar 16 04:16 config 
+-rw-r--r--. 1 root root   73 Mar 16 04:16 description 
+-rw-r--r--. 1 root root   23 Mar 16 04:16 HEAD 
+drwxr-xr-x. 2 root root 4096 Mar 16 04:16 hooks 
+drwxr-xr-x. 2 root root   21 Mar 16 04:16 info 
+drwxr-xr-x. 4 root root   30 Mar 16 04:16 objects 
+drwxr-xr-x. 4 root root   31 Mar 16 04:16 refs
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Step 3:  First Git commit
+Command : git commit 
+	Git commit: we have some files which are not tracked by the git we want that files to be tracked bit git under gittraining_v1
+```
+[melvintazz@workstation gittraining_v1]$ git commit 
+On branch master 
+Initial commit 
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+As there is no file to commit it is giving an update as nothing to commit
+
+```
+In the training environment, we are creating a file as firstcommit
+melvintazz@workstation gittraining_v1]$ ls 
+first_file.txt
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Command: Git status 
+```
+git status will provide the status of the project which will show all untracked files and tracked files
+
+For example : 
+[melvintazz@workstation gittraining_v1]$ git status 
+On branch master 
+No commits yet 
+Untracked files: 
+  (use "git add <file>..." to include in what will be committed) 
+	first_file.txt 
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Adding a file in Staging Area
+Staging Area: Is a place where git starts to track the changes of file content and keeps the history
+
+Command : git add <file name>
+```
+[melvintazz@workstation gittraining_v1]$ git add first_file.txt  
+[melvintazz@workstation gittraining_v1]$
+```
+
+Command: git add .
+Adding all the files under the directory
+```
+[melvintazz@workstation gittraining_v1]$ git status 
+On branch master 
+No commits yet 
+Changes to be committed: 
+  (use "git rm --cached <file>..." to unstage) 
+	new file:   first_file.txt 
+	new file:   test1.txt 
+	new file:   test10.txt 
+	new file:   test2.txt 
+	new file:   test3.txt 
+	new file:   test4.txt 
+	new file:   test5.txt 
+	new file:   test6.txt 
+	new file:   test7.txt 
+	new file:   test8.txt 
+	new file:   test9.txt
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Command: git commit -m "first file commit"
+Adding the message with the commit message
+```
+[melvintazz@workstation gittraining_v1]$ git commit -m "first commit" 
+[master (root-commit) d61146a] first commit 
+ Committer: melvintazz <melvintazz@workstation.hack> 
+Your name and email address were configured automatically based 
+on your username and hostname. Please check that they are accurate. 
+You can suppress this message by setting them explicitly. Run the 
+following command and follow the instructions in your editor to edit 
+your configuration file: 
+    git config --global --edit 
+After doing this, you may fix the identity used for this commit with: 
+    git commit --amend --reset-author 
+ 11 files changed, 1 insertion(+) 
+ create mode 100644 first_file.txt 
+ create mode 100644 test1.txt 
+ create mode 100644 test10.txt 
+ create mode 100644 test2.txt 
+ create mode 100644 test3.txt 
+ create mode 100644 test4.txt 
+ create mode 100644 test5.txt 
+ create mode 100644 test6.txt 
+ create mode 100644 test7.txt 
+ create mode 100644 test8.txt 
+ create mode 100644 test9.txt
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+whenever we change any files under the committed file then it will show in the staging :
+Let's add some details in test1.txt and run git status
+```
+melvintazz@workstation gittraining_v1]$ git status 
+On branch master 
+Changes not staged for commit: 
+  (use "git add <file>..." to update what will be committed) 
+  (use "git restore <file>..." to discard changes in the working directory) 
+	modified:   test1.txt 
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Command: git diff
+This command will show you the difference in the already committed file and the current updated file
+```
+[melvintazz@workstation gittraining_v1]$ git diff 
+diff --git a/test1.txt b/test1.txt 
+index e69de29..f15df13 100644 
+--- a/test1.txt 
++++ b/test1.txt 
+@@ -0,0 +1 @@ 
++Testing please ignore
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+>> Git Tracking and Logs:::
+
+Command: git log This will give the details about the git commit to the repository
+```
+[melvintazz@workstation gittraining_v1]$ git log 
+commit e8dfcdd18fd5542382c87c21bd38947393991e6d (HEAD -> master) 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 05:08:41 2021 -0700 
+    adding some new files and also modified some files 
+commit 0802e123d5c5b3d2068aa9ed726a2a5d8133ad8a 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 05:00:58 2021 -0700 
+    Addition in test1.txt 
+commit d61146ad47fbf6fb5f2ea627849e0d06c90f31c5 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 04:47:11 2021 -0700 
+    first commit
+```
+
+Command : git log --author="melvintazz" : this is a filer 
+```
+[melvintazz@workstation gittraining_v1]$ git log --author="melvintaz" 
+commit e8dfcdd18fd5542382c87c21bd38947393991e6d (HEAD -> master) 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 05:08:41 2021 -0700 
+    adding some new files and also modified some files 
+commit 0802e123d5c5b3d2068aa9ed726a2a5d8133ad8a 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 05:00:58 2021 -0700 
+    Addition in test1.txt 
+commit d61146ad47fbf6fb5f2ea627849e0d06c90f31c5 
+Author: melvintazz <melvintazz@workstation.hack> 
+Date:   Tue Mar 16 04:47:11 2021 -0700 
+    first commit
+```
+
+GITHub : it is a website and cloud-based service. Remote repository
+
+Developer System --->  committing to local repo ---> push/pull to GitHub repo (Remote repo)
+
+Create remote repo and sync with local machine:
+At the right hand side + button "New repository" >> public >>  give name Create repository
+
+Once the repository is created we can a download option to clone the repository to the server.
+
+Command: git clone -b main
+```
+example clone
+git clone -b main https://github.com/melvintazz1989/github_training.git
+Usage : 
+[melvintazz@workstation gittraining_v1]$ git clone -b main https://github.com/melvintazz1989/github_training.git 
+Cloning into 'github_training'... 
+remote: Enumerating objects: 4, done. 
+remote: Counting objects: 100% (4/4), done. 
+remote: Compressing objects: 100% (4/4), done. 
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 
+Unpacking objects: 100% (4/4), 908 bytes | 908.00 KiB/s, done.
+```
+
+Command: git pull checks the central repository and if there is any changes in a central repository and our local repository then pull command will sync the data and will give you the information
+```
+[melvintazz@workstation github_training]$ git pull 
+warning: Pulling without specifying how to reconcile divergent branches is 
+discouraged. You can squelch this message by running one of the following 
+commands sometime before your next pull: 
+  git config pull.rebase false  # merge (the default strategy) 
+  git config pull.rebase true   # rebase 
+  git config pull.ff only       # fast-forward only 
+You can replace "git config" with "git config --global" to set a default 
+preference for all repositories. You can also pass --rebase, --no-rebase, 
+or --ff-only on the command line to override the configured default per 
+invocation. 
+remote: Enumerating objects: 4, done. 
+remote: Counting objects: 100% (4/4), done. 
+remote: Compressing objects: 100% (2/2), done. 
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 
+Unpacking objects: 100% (3/3), 699 bytes | 699.00 KiB/s, done. 
+From https://github.com/melvintazz1989/github_training 
+   5b108f7..308d444  main       -> origin/main 
+Updating 5b108f7..308d444 
+Fast-forward 
+ test1.txt | 1 + 
+ 1 file changed, 1 insertion(+) 
+ create mode 100644 test1.txt 
+[melvintazz@workstation github_tr
+```
+
+Command: git push
+```
+[melvintazz@workstation github_training]$ git push 
+(gnome-ssh-askpass:62483): Gtk-WARNING **: 05:49:54.614: cannot open display:  
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass' 
+Username for 'https://github.com': tazzmelvin1989@zoho.com 
+(gnome-ssh-askpass:62495): Gtk-WARNING **: 05:50:13.603: cannot open display:  
+error: unable to read askpass response from '/usr/libexec/openssh/gnome-ssh-askpass' 
+Password for 'https://tazzmelvin1989@zoho.com@github.com':  
+Enumerating objects: 5, done. 
+Counting objects: 100% (5/5), done. 
+Compressing objects: 100% (2/2), done. 
+Writing objects: 100% (3/3), 286 bytes | 286.00 KiB/s, done. 
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 
+remote: Resolving deltas: 100% (1/1), completed with 1 local object. 
+To https://github.com/melvintazz1989/github_training.git 
+   308d444..7c4cc57  main -> main
+```
+
+Note : If you are making any changes in the local code we need to add and commit the same in local repository then only we can push the same into github
+
+Command :  Authentication using SSH and GPG Keys
+Auto authentication for push and pull details, Using SSh key
+Steps :: Profile >> SSH and GPG Keys >> 
+
+Command: git branch
